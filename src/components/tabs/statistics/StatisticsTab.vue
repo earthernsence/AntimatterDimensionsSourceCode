@@ -49,6 +49,10 @@ export default {
         bestRate: new Decimal(0),
         bestRarity: 0,
       },
+      planets: {
+        isUnlocked: false,
+        count: 0,
+      },
       matterScale: [],
       lastMatterTime: 0,
       paperclips: 0,
@@ -142,6 +146,14 @@ export default {
         reality.bestRarity = Math.max(strengthToRarity(bestReality.glyphStrength), 0);
       }
       this.updateMatterScale();
+
+      const isExplorationUnlocked = progress.isPlanetUnlocked;
+      const planets = this.planets;
+      planets.isUnlocked = isExplorationUnlocked;
+
+      if (isExplorationUnlocked) {
+        planets.count = Math.floor(Currency.explorations.value);
+      }
 
       this.isDoomed = Pelle.isDoomed;
       this.realTimeDoomed.setFrom(player.records.realTimeDoomed);
@@ -320,6 +332,16 @@ export default {
       <div>Your best Glyph rarity is {{ formatRarity(reality.bestRarity) }}.</div>
       <br>
     </div>
+    <br>
+    <div
+      v-if="planets.isUnlocked"
+      class="c-stats-tab-subheader c-stats-tab-general"
+    >
+      <div class="c-stats-tab-title c-stats-tab-planets">
+        Exploration
+      </div>
+      <div>You have explored the Planets {{ quantifyInt("time", planets.count) }}.</div>
+    </div>
   </div>
 </template>
 
@@ -351,6 +373,10 @@ export default {
 
 .c-stats-tab-reality {
   color: var(--color-reality);
+}
+
+.c-stats-tab-planets {
+  color: var(--color-earth);
 }
 
 .c-stats-tab-doomed {

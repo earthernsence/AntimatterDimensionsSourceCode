@@ -26,6 +26,7 @@ export default {
       this.isTesseractUnlocked = Enslaved.isCompleted;
       this.tesseractCost = Tesseracts.nextCost;
       this.tesseractText = this.tesseractProgress();
+      this.showPlanets = Ra.totalPetLevel >= 100 || PlayerProgress.planetsUnlocked();
     },
     tesseractProgress() {
       const progress = this.infinityPoints.add(1).log10() / this.tesseractCost.log10();
@@ -51,7 +52,10 @@ export default {
       />
     </div>
     <BigCrunchButton />
-    <div class="c-planet-points">
+    <div
+      v-if="showPlanets"
+      class="c-planet-points"
+    >
       You have
       <span class="c-game-header__pp-amount">{{ format(planetPoints, 2) }}</span>
       {{ pluralize("Planet Point", planetPoints) }}.

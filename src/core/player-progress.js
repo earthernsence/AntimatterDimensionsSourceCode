@@ -20,6 +20,10 @@ export class PlayerProgress {
     return this._player.realities > 0;
   }
 
+  get isPlanetUnlocked() {
+    return this._player.explorations > 0;
+  }
+
   get hasFullCompletion() {
     return this._player.records?.fullGameCompletions > 0;
   }
@@ -54,6 +58,10 @@ export class PlayerProgress {
 
   static realityUnlocked() {
     return PlayerProgress.current.isRealityUnlocked;
+  }
+
+  static planetsUnlocked() {
+    return PlayerProgress.current.isPlanetUnlocked;
   }
 
   static seenAlteredSpeed() {

@@ -7,7 +7,6 @@ import BlackHoleTab from "./black-hole/BlackHoleTab";
 import BreakInfinityTab from "./break-infinity/BreakInfinityTab";
 import CelestialNavigationTab from "./celestial-navigation/CelestialNavigationTab";
 import ChallengeRecordsTab from "./challenge-records/ChallengeRecordsTab";
-import EarthTab from "./earth/EarthTab";
 import EffarigTab from "./celestial-effarig/EffarigTab";
 import EnslavedTab from "./celestial-enslaved/EnslavedTab";
 import EternityChallengesTab from "./eternity-challenges/EternityChallengesTab";
@@ -21,6 +20,7 @@ import InfinityDimensionsTab from "./infinity-dimensions/InfinityDimensionsTab";
 import InfinityUpgradesTab from "./infinity-upgrades/InfinityUpgradesTab";
 import LaitelaTab from "./celestial-laitela/LaitelaTab";
 import MarsTab from "./earth/MarsTab";
+import MercuryTab from "./earth/MercuryTab";
 import MultiplierBreakdownTab from "./statistics/MultiplierBreakdownTab";
 import NormalAchievementsTab from "./normal-achievements/NormalAchievementsTab";
 import NormalChallengesTab from "./normal-challenges/NormalChallengesTab";
@@ -89,7 +89,7 @@ const TabComponents = {
   ShopTab,
   MultiplierBreakdownTab,
   VenusTab,
-  EarthTab,
+  MercuryTab,
   MarsTab
 };
 

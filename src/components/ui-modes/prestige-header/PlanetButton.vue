@@ -3,19 +3,26 @@ export default {
   name: "PlanetButton",
   data() {
     return {
-      gainedPP: new Decimal(0)
+      gainedPP: new Decimal(0),
+      canExplore: false,
     };
   },
   computed: {
     buttonClassObject() {
       return {
-        "o-planet-button": true
+        "o-planet-button": true,
+        "o-planet-button--unavailable": !this.canExplore
       };
+    },
+    text() {
+      if (this.canExplore) return `Explore the Planets for ${quantifyInt("Planet Point", this.gainedPP)}`;
+      return `Reach 100 Ra levels to Explore the Planets.`;
     }
   },
   methods: {
     update() {
       this.gainedPP.copyFrom(gainedPlanetPoints());
+      this.canExplore = Player.canExplore;
     },
     explore() {
       planetResetRequest();
@@ -30,8 +37,13 @@ export default {
     class="o-prestige-button"
     @click="explore"
   >
-    Explore the planets for
-    <span>{{ format(gainedPP, 2) }}</span>
-    Planet {{ pluralize("Point", gainedPP) }}
+    {{ text }}
   </button>
 </template>
+
+<style>
+.o-planet-button--unavailable {
+  opacity: 0.5;
+  cursor: default;
+}
+</style>

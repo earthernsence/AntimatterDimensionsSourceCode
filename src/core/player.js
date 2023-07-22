@@ -766,12 +766,16 @@ window.player = {
   },
   planetPoints: DC.D0,
   watts: DC.D0,
+  explorations: 0,
   planets: {
-    earth: {
-      unlocked: false
-    },
     mars: {
-      unlocked: false
+      isUnlocked: false
+    },
+    venus: {
+      isUnlocked: false
+    },
+    mercury: {
+      isUnlocked: false
     }
   },
   isGameEnd: false,
@@ -959,6 +963,10 @@ export const Player = {
 
   get canEternity() {
     return player.records.thisEternity.maxIP.gte(Player.eternityGoal);
+  },
+
+  get canExplore() {
+    return Ra.totalPetLevel >= 100;
   },
 
   get bestRunIPPM() {

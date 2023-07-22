@@ -487,3 +487,8 @@ Currency.watts = new class extends DecimalCurrency {
   get value() { return player.watts; }
   set value(value) { player.watts = value; }
 }();
+
+Currency.explorations = new class extends NumberCurrency {
+  get value() { return player.explorations; }
+  set value(value) { player.explorations = value; }
+}();

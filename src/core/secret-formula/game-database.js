@@ -13,6 +13,7 @@ import { eternity } from "./eternity";
 import { h2p } from "./h2p";
 import { infinity } from "./infinity";
 import { news } from "./news";
+import { planets } from "./planets";
 import { progressStages } from "./progress-checker";
 import { reality } from "./reality";
 import { shopPurchases } from "./shop-purchases";
@@ -36,6 +37,7 @@ export const GameDatabase = {
   multiplierTabTree,
   multiplierTabValues,
   news,
+  planets,
   progressStages,
   reality,
   shopPurchases,

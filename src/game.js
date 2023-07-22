@@ -170,8 +170,25 @@ export function gainedGlyphLevel() {
   };
 }
 
+function totalPPMult() {
+  if (player.explorations < 7) return 1;
+  return Math.max(Math.log(player.explorations - 6), 1);
+}
+
 export function gainedPlanetPoints() {
-  return new Decimal(1);
+  const levels = Ra.totalPetLevel;
+
+  return new Decimal(Math.floor(levels / 100)).times(totalPPMult()).round();
+}
+
+export function nextUnlockedPlanet() {
+  return ["Mars, the Bringer of War",
+    "Venus, the Bringer of Peace",
+    "Mercury, the Winged Messenger",
+    "Jupiter, the Bringer of Jollity",
+    "Saturn, the Bringer of Old Age",
+    "Uranus, the Magician",
+    "Neptune, the Mystic"][player.explorations];
 }
 
 export function resetChallengeStuff() {

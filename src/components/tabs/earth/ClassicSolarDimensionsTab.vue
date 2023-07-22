@@ -1,11 +1,11 @@
 <script>
-import ModernSolarDimensionRow from "@/components/tabs/earth/ModernSolarDimensionRow";
+import ClassicSolarDimensionRow from "@/components/tabs/earth/ClassicSolarDimensionRow";
 import PrimaryButton from "@/components/PrimaryButton";
 
 export default {
-  name: "ModernSolarDimensionsTab",
+  name: "ClassicSolarDimensionsTab",
   components: {
-    ModernSolarDimensionRow,
+    ClassicSolarDimensionRow,
     PrimaryButton
   },
   data() {
@@ -52,7 +52,7 @@ export default {
     </div>
     <div>You are getting {{ format(wattsPerSecond, 2, 0) }} Watts per second.</div>
     <div class="l-dimensions-container">
-      <ModernSolarDimensionRow
+      <ClassicSolarDimensionRow
         v-for="tier in 8"
         :key="tier"
         :tier="tier"

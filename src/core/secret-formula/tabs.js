@@ -502,34 +502,37 @@ export const tabs = [
     name: "Planets",
     hideAt: 1.9,
     UIClass: "o-tab-btn--earth",
-    condition: () => true,
+    condition: () => PlayerProgress.planetsUnlocked(),
     id: 11,
     hidable: true,
     subtabs: [
       {
-        key: "venus",
-        name: "Venus, Bringer of Peace",
-        symbol: "*",
-        component: "VenusTab",
-        id: 2,
-        hidable: true
-      },
-      {
-        key: "earth",
-        name: "Earth",
-        symbol: "%",
-        component: "EarthTab",
-        id: 0,
-        hidable: true
-      },
-      {
         key: "mars",
         name: "Mars, Bringer of War",
-        symbol: "?",
+        symbol: `<i class="fa-solid fa-mars"></i>`,
         component: "MarsTab",
         id: 1,
-        hidable: true
-      }
+        hidable: true,
+        condition: () => Planets.mars.isUnlocked
+      },
+      {
+        key: "venus",
+        name: "Venus, Bringer of Peace",
+        symbol: `<i class="fa-solid fa-venus"></i>`,
+        component: "VenusTab",
+        id: 2,
+        hidable: true,
+        condition: () => Planets.venus.isUnlocked
+      },
+      {
+        key: "mercury",
+        name: "Mercury, Winged Messenger",
+        symbol: `<i class="fa-solid fa-mercury"></i>`,
+        component: "MercuryTab",
+        id: 3,
+        hidable: true,
+        condition: () => Planets.mercury.isUnlocked
+      },
     ]
   }
 ];

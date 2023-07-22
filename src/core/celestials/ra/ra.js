@@ -127,7 +127,7 @@ class RaPetState extends GameMechanicState {
       Effects.product(Ra.unlocks.continuousTTBoost.effects.memoryChunks, GlyphSacrifice.reality);
     if (this.hasRemembrance) res *= Ra.remembrance.multiplier;
     else if (Ra.petWithRemembrance) res *= Ra.remembrance.nerf;
-    return res;
+    return res * Math.max(Math.log10(getWattsEffect()), 1);
   }
 
   get canGetMemoryChunks() {
@@ -257,7 +257,7 @@ export const Ra = {
     for (const pet of Ra.pets.all) {
       if (pet.isUnlocked) res *= pet.memoryProductionMultiplier;
     }
-    return res;
+    return res * getWattsEffect();
   },
   get memoryBoostResources() {
     const boostList = [];
@@ -266,6 +266,7 @@ export const Ra = {
     }
     if (Achievement(168).isUnlocked) boostList.push("Achievement 168");
     if (Ra.unlocks.continuousTTBoost.canBeApplied) boostList.push("current TT");
+    if (getWattsEffect() > 1) boostList.push("Solar Dimensions");
 
     if (boostList.length === 1) return `${boostList[0]}`;
     if (boostList.length === 2) return `${boostList[0]} and ${boostList[1]}`;

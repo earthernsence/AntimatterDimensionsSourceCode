@@ -181,6 +181,10 @@ body.t-s12 {
   color: var(--color-pelle--base);
 }
 
+.o-sidebar-currency--planets {
+  color: var(--color-earth);
+}
+
 .resource-infinity-canreset,
 .resource-eternity-canreset {
   background-color: black;

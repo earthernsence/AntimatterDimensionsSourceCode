@@ -7,6 +7,7 @@ export default {
       IP: new Decimal(0),
       EP: new Decimal(0),
       RM: new Decimal(0),
+      PP: new Decimal(0),
       IM: 0,
       RS: new Decimal(0),
       machineStr: "",
@@ -22,12 +23,14 @@ export default {
       this.IP.copyFrom(Currency.infinityPoints.value.floor());
       this.EP.copyFrom(Currency.eternityPoints.value.floor());
       this.RM.copyFrom(Currency.realityMachines.value.floor());
+      this.PP.copyFrom(Currency.planetPoints.value.floor());
       this.IM = Currency.imaginaryMachines.value;
       this.RS.copyFrom(Currency.realityShards);
       this.machineStr = formatMachines(this.RM, this.IM);
       this.showIP = PlayerProgress.infinityUnlocked();
       this.showEP = PlayerProgress.eternityUnlocked();
       this.showRM = PlayerProgress.realityUnlocked();
+      this.showPP = PlayerProgress.planetsUnlocked();
       this.showRS = Pelle.isDoomed;
     }
   },
@@ -42,6 +45,14 @@ export default {
       </h2>
       <div class="c-sidebar-resource__information">
         <span class="c-sidebar-resource__name">{{ pluralize("Reality Shard", RS) }}</span>
+      </div>
+    </template>
+    <template v-else-if="showPP">
+      <h2 class="o-sidebar-currency--planets">
+        {{ format(PP, 2) }}
+      </h2>
+      <div class="c-sidebar-resource__information">
+        <span class="c-sidebar-resource__name">{{ pluralize("Planet Point", PP) }}</span>
       </div>
     </template>
     <template v-else-if="showRM">

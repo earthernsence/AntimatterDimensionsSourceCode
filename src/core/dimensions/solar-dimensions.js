@@ -66,6 +66,10 @@ export function fullResetSolarDimensions() {
   player.watts = new Decimal(0);
 }
 
+export function getWattsEffect() {
+  return Math.max(Currency.watts.value.log10(), 1);
+}
+
 class SolarDimensionState extends DimensionState {
   constructor(tier) {
     super(() => player.dimensions.solar, tier);
@@ -137,7 +141,7 @@ class SolarDimensionState extends DimensionState {
   }
 
   get powerMultiplier() {
-    return DC.D4;
+    return DC.D2;
   }
 }
 
