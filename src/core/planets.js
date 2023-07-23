@@ -41,6 +41,21 @@ class BasePlanet {
   }
 }
 
+export class ExplorationMilestoneState {
+  constructor(config) {
+    this.config = config;
+  }
+
+  get isReached() {
+    return Currency.explorations.value >= this.config.explorations;
+  }
+}
+
+export const ExplorationMilestone = mapGameDataToObject(
+  GameDatabase.planets.explorationMilestones,
+  config => new ExplorationMilestoneState(config)
+);
+
 export const Planets = {
   mars: new BasePlanet(GameDatabase.planets.mars),
   venus: new BasePlanet(GameDatabase.planets.venus),

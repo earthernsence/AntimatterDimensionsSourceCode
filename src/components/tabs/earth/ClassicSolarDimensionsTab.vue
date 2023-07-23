@@ -20,8 +20,8 @@ export default {
     update() {
       this.watts.copyFrom(Currency.watts);
       this.wattsPerSecond.copyFrom(SolarDimension(1).productionPerSecond);
-      this.wattsChunkEffect = getWattsEffect();
-      this.wattsMemoryGainEffect = Math.max(Math.log10(this.wattsChunkEffect), 1);
+      this.wattsChunkEffect = Math.max(Currency.watts.value.log10() / Decimal.log10(1000), 1);
+      this.wattsMemoryGainEffect = getWattsEffect();
     },
     maxAll() {
       maxAllSolarDimensions();
@@ -44,9 +44,10 @@ export default {
       <p>
         You have gained
         <span class="c-solar-dim-description__accent">{{ format(watts, 2, 1) }}</span> Watts,
-        which translates to a <span class="c-solar-dim-description__accent">{{ formatX(wattsChunkEffect, 2, 1) }}</span>
+        which translates to a
+        <span class="c-solar-dim-description__accent">{{ formatX(wattsMemoryGainEffect, 2, 1) }}</span>
         multiplier to Memory gain and a
-        <span class="c-solar-dim-description__accent">{{ formatX(wattsMemoryGainEffect, 2, 1) }}</span> multiplier to
+        <span class="c-solar-dim-description__accent">{{ formatX(wattsChunkEffect, 2, 2) }}</span> multiplier to
         Memory Chunk gain.
       </p>
     </div>

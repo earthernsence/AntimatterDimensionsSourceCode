@@ -500,12 +500,21 @@ export const tabs = [
   {
     key: "planets",
     name: "Planets",
-    hideAt: 1.9,
+    hideAt: 15,
     UIClass: "o-tab-btn--earth",
     condition: () => PlayerProgress.planetsUnlocked(),
     id: 11,
     hidable: true,
     subtabs: [
+      {
+        key: "explorations",
+        name: "Exploration Milestones",
+        symbol: `<i class="fa-solid fa-certificate"></i>`,
+        component: "ExplorationMilestonesTab",
+        id: 0,
+        hidable: true,
+        condition: () => Ra.unlocks.planetMilestones.isUnlocked
+      },
       {
         key: "mars",
         name: "Mars, Bringer of War",

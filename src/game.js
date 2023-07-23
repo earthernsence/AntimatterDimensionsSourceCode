@@ -629,6 +629,12 @@ export function gameLoop(passDiff, options = {}) {
   const teresa25 = !isInCelestialReality() && Ra.unlocks.unlockDilationStartingTP.canBeApplied;
   if ((teresa1 || teresa25) && !Pelle.isDoomed) rewardTP();
 
+  if (player.dilation.active) {
+    player.records.totalAntimatterInsideDilation = player.records.totalAntimatterInsideDilation.add(
+      Currency.antimatter.value
+    );
+  }
+
   if (Enslaved.canTickHintTimer) {
     player.celestials.enslaved.hintUnlockProgress += Enslaved.isRunning ? realDiff : (realDiff * 0.4);
     if (player.celestials.enslaved.hintUnlockProgress >= TimeSpan.fromHours(5).totalMilliseconds) {

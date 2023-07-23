@@ -40,6 +40,7 @@ export function antimatterDimensionCommonMultiplier() {
     InfinityChallenge(8),
     EternityChallenge(10),
     AlchemyResource.dimensionality,
+    Ra.unlocks.dimensionsImprovement.effects.antimatterDimensions,
     PelleUpgrade.antimatterDimensionMult
   );
 

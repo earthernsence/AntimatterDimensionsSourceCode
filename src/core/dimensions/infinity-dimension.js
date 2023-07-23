@@ -16,6 +16,7 @@ export function infinityDimensionCommonMultiplier() {
       EternityUpgrade.idMultEP,
       EternityUpgrade.idMultEternities,
       EternityUpgrade.idMultICRecords,
+      Ra.unlocks.dimensionsImprovement.effects.infinityDimensions,
       AlchemyResource.dimensionality,
       ImaginaryUpgrade(8),
       PelleRifts.recursion.milestones[1]

@@ -204,6 +204,20 @@ window.player = {
     singularity: { isActive: false },
     ipMultBuyer: { isActive: false, },
     epMultBuyer: { isActive: false, },
+    raMemories: {
+      all: Array.range(0, 4).map(tier => ({
+        isActive: false,
+        name: ["Teresa", "Effarig", "Nameless", "V"][tier]
+      })),
+      isActive: true
+    },
+    raPetUpgrades: {
+      all: Array.range(0, 4).map(tier => ({
+        isActive: false,
+        name: ["Teresa", "Effarig", "Nameless", "V"][tier]
+      })),
+      isActive: true
+    }
   },
   infinityPoints: DC.D0,
   infinities: DC.D0,
@@ -281,6 +295,7 @@ window.player = {
     fullGameCompletions: 0,
     previousRunRealTime: 0,
     totalAntimatter: DC.E1,
+    totalAntimatterInsideDilation: DC.E1,
     recentInfinities: Array.range(0, 10).map(() =>
       [Number.MAX_VALUE, Number.MAX_VALUE, DC.D1, DC.D1, ""]),
     recentEternities: Array.range(0, 10).map(() =>
@@ -641,6 +656,13 @@ window.player = {
           memoryChunks: 0,
           memoryUpgrades: 0,
           chunkUpgrades: 0
+        },
+        laitela: {
+          level: 1,
+          memories: 0,
+          memoryChunks: 0,
+          memoryUpgrades: 0,
+          chunkUpgrades: 0
         }
       },
       alchemy: Array.repeat(0, 21)
@@ -659,6 +681,7 @@ window.player = {
       quoteBits: 0,
       momentumTime: 0,
       unlockBits: 0,
+      deepUnlockBits: 0,
       run: false,
       charged: new Set(),
       disCharge: false,
@@ -768,6 +791,9 @@ window.player = {
   watts: DC.D0,
   explorations: 0,
   planets: {
+    milestones: {
+      unlocked: false
+    },
     mars: {
       isUnlocked: false
     },

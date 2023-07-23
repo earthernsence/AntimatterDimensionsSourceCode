@@ -160,8 +160,12 @@ export class DimBoost {
     return Ra.isRunning ? 0 : ImaginaryUpgrade(12).effectOrDefault(0) * ImaginaryUpgrade(23).effectOrDefault(1);
   }
 
+  static get laitelaPetBoosts() {
+    return Ra.isRunning ? 0 : Ra.unlocks.extraDimboosts.effectOrDefault(1);
+  }
+
   static get totalBoosts() {
-    return Math.floor(this.purchasedBoosts + this.imaginaryBoosts);
+    return Math.floor(this.purchasedBoosts + this.imaginaryBoosts + this.laitelaPetBoosts);
   }
 
   static get startingDimensionBoosts() {

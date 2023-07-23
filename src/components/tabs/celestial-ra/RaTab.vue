@@ -56,6 +56,12 @@ export default {
           const triadCount = Ra.unlocks.unlockHardV.effectOrDefault(0);
           return `You have unlocked ${quantifyInt("Triad Study", triadCount)}.`;
         },
+      },
+      {
+        pet: Ra.pets.laitela,
+        scalingUpgradeVisible: () => Ra.unlocks.extraDimboosts.isUnlocked,
+        scalingUpgradeText: () => `You are getting 
+        ${formatInt(Ra.unlocks.extraDimboosts.effectOrDefault(1))} free DimBoosts.`
       }
     ],
     petStyle() {

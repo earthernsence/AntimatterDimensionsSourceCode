@@ -39,6 +39,16 @@ export const ra = {
       requiredUnlock: () => Ra.unlocks.vUnlock,
       rawMemoryChunksPerSecond: () => 4 * Math.pow(Currency.infinityPower.value.pLog10() / 1e7, 1.5),
       memoryProductionMultiplier: () => Ra.unlocks.vXP.effectOrDefault(1)
+    },
+    laitela: {
+      id: "laitela",
+      name: "Lai'tela",
+      color: "#FFFFFF",
+      chunkGain: "Dilated Time",
+      memoryGain: "best Antimatter in Dilation",
+      requiredUnlock: () => undefined,
+      rawMemoryChunksPerSecond: () => 4 * Math.pow(Currency.dilatedTime.value.pLog10() / 1e8, 0.5),
+      memoryProductionMultiplier: () => Ra.unlocks.laiXP.effectOrDefault(1)
     }
   },
   unlocks: {
@@ -291,6 +301,60 @@ export const ra = {
       level: 25,
       displayIcon: `<i class="fab fa-buffer"></i>`,
       disabledByPelle: true
+    },
+    dimensionsImprovement: {
+      id: 28,
+      reward: `All Dimensions, including Dark Matter Dimensions and Solar Dimensions, 
+      gain a boost based on Dark Matter`,
+      effects: {
+        antimatterDimensions: () => Decimal.pow(10, Currency.darkMatter.value.ln() * 5),
+        infinityDimensions: () => Decimal.pow(10, Currency.darkMatter.value.ln() * 2),
+        timeDimensions: () => Decimal.pow(10, Currency.darkMatter.value.ln()),
+        darkMatterDimensions: () => Decimal.pow(10, Math.log10(Currency.darkMatter.value.ln())),
+        solarDimensions: () => Decimal.pow(2, Math.log10(Currency.darkMatter.value.ln()))
+      },
+      pet: "laitela",
+      level: 1,
+      displayIcon: `<i class="fa-solid fa-cube"></i>`,
+      disabledByPelle: true
+    },
+    extraDimboosts: {
+      id: 29,
+      reward: "Gain free DimBoosts based on Lai'tela level",
+      effect: () => Math.pow(2, Ra.pets.laitela.level),
+      pet: "laitela",
+      level: 2,
+      displayIcon: `<i class="fa-solid fa-angles-up"></i>`,
+      disabledByPelle: true
+    },
+    laiXP: {
+      id: 30,
+      reward: "All Memory Chunks produce more Memories based on best Antimatter inside Dilation.",
+      effect: () => Math.max(Math.sqrt(Math.log10(player.records.totalAntimatterInsideDilation.pLog10() + 1)), 1),
+      pet: "laitela",
+      level: 5,
+      displayIcon: `<i class="fa-solid fa-arrows-spin"></i>`,
+      disabledByPelle: true,
+    },
+    planetMilestones: {
+      id: 31,
+      reward: `Unlock Planet Milestones, which give various boosts based on Exploration count. 
+      Will remain unlocked once reached once.`,
+      pet: "laitela",
+      level: 8,
+      displayIcon: `<i class="fa-solid fa-road"></i>`,
+      disabledByPelle: true,
+      onUnlock: () => {
+        player.planets.milestones.unlocked = true;
+      }
+    },
+    imGain: {
+      deepId: 0,
+      reward: "Accrue Imaginary Machines faster based on Imaginary Machines",
+      effect: () => 1 + Math.sqrt(player),
+      pet: "laitela",
+      level: 10,
+      displayIcon: `<i class="fa-solid fa-brain"></i>`
     }
   }
 };

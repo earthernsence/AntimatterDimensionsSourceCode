@@ -1,9 +1,11 @@
-import { BitUpgradeState, GameMechanicState } from "../../game-mechanics";
+import { DeepBitUpgradeState, GameMechanicState } from "../../game-mechanics";
 import { Quotes } from "../quotes";
 
-class RaUnlockState extends BitUpgradeState {
+class RaUnlockState extends DeepBitUpgradeState {
   get bits() { return player.celestials.ra.unlockBits; }
   set bits(value) { player.celestials.ra.unlockBits = value; }
+  get deepBits() { return player.celestials.ra.deepUnlockBits; }
+  set deepBits(value) { player.celestials.ra.deepUnlockBits = value; }
 
   get disabledByPelle() {
     return Pelle.isDoomed && this.config.disabledByPelle;
@@ -127,7 +129,7 @@ class RaPetState extends GameMechanicState {
       Effects.product(Ra.unlocks.continuousTTBoost.effects.memoryChunks, GlyphSacrifice.reality);
     if (this.hasRemembrance) res *= Ra.remembrance.multiplier;
     else if (Ra.petWithRemembrance) res *= Ra.remembrance.nerf;
-    return res * Math.max(Math.log10(getWattsEffect()), 1);
+    return res * Math.max(Currency.watts.value.log10() / Decimal.log10(1000), 1);
   }
 
   get canGetMemoryChunks() {

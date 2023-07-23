@@ -3,7 +3,12 @@ import { DC } from "../constants";
 import { DimensionState } from "./dimension";
 
 export function solarDimensionCommonMultiplier() {
-  return DC.D1;
+  let multiplier = DC.D1;
+
+  multiplier = multiplier.timesEffectsOf(
+    Ra.unlocks.dimensionsImprovement.effects.solarDimensions
+  );
+  return multiplier;
 }
 
 export function buySingleSolarDimension(tier) {
