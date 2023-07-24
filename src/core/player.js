@@ -798,11 +798,70 @@ window.player = {
       isUnlocked: false
     },
     venus: {
-      isUnlocked: false
+      isUnlocked: false,
+      satellites: 0,
+      purchasedSatellites: 0,
+      assignedSatellites: 0,
+      research: {
+        mars: {
+          unlocked: false,
+          level: 0,
+          satellites: 0,
+          progressPoints: 0,
+        },
+        venus: {
+          unlocked: false,
+          level: 0,
+          satellites: 0,
+          progressPoints: 0,
+        },
+        mercury: {
+          unlocked: false,
+          level: 0,
+          satellites: 0,
+          progressPoints: 0,
+        },
+        jupiter: {
+          unlocked: false,
+          level: 0,
+          satellites: 0,
+          progressPoints: 0,
+        },
+        saturn: {
+          unlocked: false,
+          level: 0,
+          satellites: 0,
+          progressPoints: 0,
+        },
+        uranus: {
+          unlocked: false,
+          level: 0,
+          satellites: 0,
+          progressPoints: 0,
+        },
+        neptune: {
+          unlocked: false,
+          level: 0,
+          satellites: 0,
+          progressPoints: 0,
+        }
+      }
     },
     mercury: {
       isUnlocked: false
-    }
+    },
+    jupiter: {
+      isUnlocked: false
+    },
+    saturn: {
+      isUnlocked: false
+    },
+    uranus: {
+      isUnlocked: false
+    },
+    neptune: {
+      isUnlocked: false
+    },
   },
   isGameEnd: false,
   tabNotifications: new Set(),

@@ -1,5 +1,5 @@
 <script>
-import ExplorationMilestonesButton from "@/components/tabs/earth/ExplorationMilestonesButton";
+import ExplorationMilestonesButton from "@/components/tabs/planets/milestones/ExplorationMilestonesButton";
 
 export default {
   name: "ExplorationMilestonesTab",
@@ -13,7 +13,7 @@ export default {
   },
   computed: {
     milestones() {
-      return Object.values(GameDatabase.planets.explorationMilestones)
+      return Object.values(GameDatabase.exploration.explorationMilestones)
         .sort((a, b) => a.explorations - b.explorations)
         .map(config => new ExplorationMilestoneState(config));
     },

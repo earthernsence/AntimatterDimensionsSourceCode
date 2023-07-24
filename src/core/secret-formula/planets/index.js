@@ -1,11 +1,24 @@
 import { explorationMilestones } from "./milestones";
+
+import { jupiter } from "./jupiter";
 import { mars } from "./mars";
 import { mercury } from "./mercury";
+import { neptune } from "./neptune";
+import { saturn } from "./saturn";
+import { uranus } from "./uranus";
 import { venus } from "./venus";
 
-export const planets = {
-  explorationMilestones,
+const planets = {
   mars,
   venus,
   mercury,
+  jupiter,
+  saturn,
+  uranus,
+  neptune
+};
+
+export const exploration = {
+  explorationMilestones,
+  planets
 };

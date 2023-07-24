@@ -1,4 +1,27 @@
+/**
+ * @typedef {Object} subtabs
+ * @property {String} key
+ * @property {String} name
+ * @property {String} symbol
+ * @property {String} component
+ * @property {Number} id
+ * @property {Boolean} hidable
+ * @property {Number} hideAt
+ * @property {Function: Boolean} condition
+ */
+
 export const tabs = [
+  /**
+   * @template
+   * {
+   *  @property {String} key
+   *  @property {String} name
+   *  @property {Number} hideAt
+   *  @property {Number} id
+   *  @property {Boolean} hidable
+   *  @property {Array: subtabs} subtabs
+   * }
+   */
   {
     key: "dimensions",
     name: "Dimensions",
@@ -513,7 +536,7 @@ export const tabs = [
         component: "ExplorationMilestonesTab",
         id: 0,
         hidable: true,
-        condition: () => Ra.unlocks.planetMilestones.isUnlocked
+        condition: () => player.planets.milestones.unlocked
       },
       {
         key: "mars",
@@ -541,6 +564,42 @@ export const tabs = [
         id: 3,
         hidable: true,
         condition: () => Planets.mercury.isUnlocked
+      },
+      {
+        key: "jupiter",
+        name: "Jupiter, Bringer of Jollity",
+        symbol: `♃`,
+        component: "JupiterTab",
+        id: 5,
+        hidable: true,
+        condition: () => Planets.jupiter.isUnlocked
+      },
+      {
+        key: "saturn",
+        name: "Saturn, Bringer of Old Age",
+        symbol: `♄`,
+        component: "SaturnTab",
+        id: 6,
+        hidable: true,
+        condition: () => Planets.saturn.isUnlocked
+      },
+      {
+        key: "uranus",
+        name: "Uranus, the Magician",
+        symbol: `⛢`,
+        component: "UranusTab",
+        id: 7,
+        hidable: true,
+        condition: () => Planets.uranus.isUnlocked
+      },
+      {
+        key: "neptune",
+        name: "Neptune, the Mystic",
+        symbol: `♆`,
+        component: "NeptuneTab",
+        id: 8,
+        hidable: true,
+        condition: () => Planets.neptune.isUnlocked
       },
     ]
   }

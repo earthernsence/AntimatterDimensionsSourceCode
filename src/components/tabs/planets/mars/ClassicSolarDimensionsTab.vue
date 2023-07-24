@@ -1,5 +1,5 @@
 <script>
-import ClassicSolarDimensionRow from "@/components/tabs/earth/ClassicSolarDimensionRow";
+import ClassicSolarDimensionRow from "@/components/tabs/planets/mars/ClassicSolarDimensionRow";
 import PrimaryButton from "@/components/PrimaryButton";
 
 export default {

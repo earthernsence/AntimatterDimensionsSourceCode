@@ -1,12 +1,12 @@
 <script>
 export default {
-  name: "VenusTab",
+  name: "JupiterTab",
 };
 </script>
 
 <template>
   <div class="l-break-infinity-tab">
-    <h1>Venus' tab</h1>
+    <h1>Jupiter's tab</h1>
   </div>
 </template>
 

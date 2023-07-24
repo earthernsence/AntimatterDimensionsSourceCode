@@ -42,7 +42,8 @@ export class DimBoost {
     const normalBoostMult = DimBoost.power.pow(this.purchasedBoosts + 1 - tier).clampMin(1);
     const imaginaryBoostMult = DimBoost.power.times(ImaginaryUpgrade(24).effectOrDefault(1))
       .pow(this.imaginaryBoosts).clampMin(1);
-    return normalBoostMult.times(imaginaryBoostMult);
+    const laitelaPetBoostMult = DimBoost.power.times(this.laitelaPetBoosts).clampMin(1);
+    return normalBoostMult.times(imaginaryBoostMult).times(laitelaPetBoostMult);
   }
 
   static get maxDimensionsUnlockable() {

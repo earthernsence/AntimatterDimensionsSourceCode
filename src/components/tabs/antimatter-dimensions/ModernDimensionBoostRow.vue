@@ -15,6 +15,7 @@ export default {
       creditsClosed: false,
       requirementText: null,
       hasTutorial: false,
+      laitelaPetBoosts: 0,
     };
   },
   computed: {
@@ -27,6 +28,9 @@ export default {
       const parts = [this.purchasedBoosts];
       if (this.imaginaryBoosts !== 0) {
         parts.push(this.imaginaryBoosts);
+      }
+      if (this.laitelaPetBoosts !== 0) {
+        parts.push(this.laitelaPetBoosts);
       }
       const sum = parts.map(formatInt).join(" + ");
       if (parts.length >= 2) {
@@ -51,6 +55,7 @@ export default {
       this.isBuyable = requirement.isSatisfied && DimBoost.canBeBought;
       this.purchasedBoosts = DimBoost.purchasedBoosts;
       this.imaginaryBoosts = DimBoost.imaginaryBoosts;
+      this.laitelaPetBoosts = DimBoost.laitelaPetBoosts;
       this.lockText = DimBoost.lockText;
       this.unlockedByBoost = DimBoost.unlockedByBoost;
       this.creditsClosed = GameEnd.creditsEverClosed;

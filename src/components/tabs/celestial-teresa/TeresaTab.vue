@@ -213,11 +213,11 @@ export default {
         <div class="c-rm-store">
           <div
             class="c-rm-store-inner c-rm-store-inner--light"
-            :style="{ height: possibleFillPercentage}"
+            :style="{ height: possibleFillPercentage }"
           />
           <div
             class="c-rm-store-inner"
-            :style="{ height: percentage}"
+            :style="{ height: percentage }"
           >
             <div class="c-rm-store-label">
               {{ formatX(rmMult, 2, 2) }} RM gain

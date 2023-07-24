@@ -1,8 +1,8 @@
 export const explorationMilestones = {
   autobuyerRaPets: {
     explorations: 1,
-    reward: () => `Unlock the Ra Pets autobuyer ${Ra.pets.laitela.isUnlocked ? "(no autobuyer for Lai'tela)" : ""}
-    and a new Planet for each exploration up to 7. Unlock Mars, the Bringer of War.`
+    reward: () => `Unlock Mars, the Bringer of War.
+    Unlock the Ra Pets autobuyer ${Ra.pets.laitela.isUnlocked ? "(no autobuyer for Lai'tela)" : ""}`
   },
   venus: {
     explorations: 2,
@@ -14,7 +14,7 @@ export const explorationMilestones = {
   },
   jupiter: {
     explorations: 4,
-    reward: "Unlock Mercury, the Bringer of Jollity",
+    reward: "Unlock Jupiter, the Bringer of Jollity",
   },
   saturn: {
     explorations: 5,
@@ -29,10 +29,10 @@ export const explorationMilestones = {
     reward: () => `Unlock Neptune, the Mystic.
     Unlock the Ra Upgrades autobuyer ${Ra.pets.laitela.isUnlocked ? "(no autobuyer for Lai'tela)" : ""}`
   },
-  earthlol: {
+  planetPointGainBoost: {
     explorations: 10,
-    invisible: true,
-    reward: () => `Boo`
+    reward: () => `Boost Planet Point gain based on total Explorations.\n
+    Currently ${formatX(Math.max(Math.log(player.explorations - 7), 1), 2, 2)}`
   },
   earthlol2: {
     explorations: 12,

@@ -6,7 +6,8 @@ export function solarDimensionCommonMultiplier() {
   let multiplier = DC.D1;
 
   multiplier = multiplier.timesEffectsOf(
-    Ra.unlocks.dimensionsImprovement.effects.solarDimensions
+    Ra.unlocks.dimensionsImprovement.effects.solarDimensions,
+    Research.planets.mars.effects.research
   );
   return multiplier;
 }

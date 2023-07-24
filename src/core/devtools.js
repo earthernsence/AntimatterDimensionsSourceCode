@@ -528,3 +528,15 @@ dev.forceCloudSave = async function() {
 dev.unlockAllCosmeticSets = function() {
   player.reality.glyphs.cosmetics.unlockedFromNG = Object.keys(GameDatabase.reality.glyphCosmeticSets);
 };
+
+dev.unlockAllPlanets = function() {
+  for (const planet in Planets) {
+    Planets[planet].isUnlocked = true;
+  }
+};
+
+dev.lockAllPlanets = function() {
+  for (const planet in Planets) {
+    Planets[planet].isUnlocked = false;
+  }
+};

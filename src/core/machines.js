@@ -63,7 +63,7 @@ export const MachineHandler = {
 
   // Time in seconds to reduce the missing amount by a factor of two
   get scaleTimeForIM() {
-    return 60 / ImaginaryUpgrade(20).effectOrDefault(1);
+    return 60 / ImaginaryUpgrade(20).effectOrDefault(1) / Ra.unlocks.imGain.effectOrDefault(1);
   },
 
   gainedImaginaryMachines(diff) {

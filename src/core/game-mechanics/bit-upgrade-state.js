@@ -40,11 +40,10 @@ export class BitUpgradeState extends GameMechanicState {
 export class DeepBitUpgradeState extends BitUpgradeState {
   constructor(config) {
     super(config);
-    if (this.deepId) {
-      this.id = this.deepId;
-      this.usedBits = this.deepBits;
+    if (this.deepId === undefined) {
+      this.typeOfBits = "bits";
     } else {
-      this.usedBits = this.bits;
+      this.typeOfBits = "deepBits";
     }
   }
 
@@ -54,13 +53,22 @@ export class DeepBitUpgradeState extends BitUpgradeState {
   get deepBits() { throw new NotImplementedError(); }
   set deepBits(value) { throw new NotImplementedError(); }
 
+  get deepId() {
+    return this.config.deepId;
+  }
+
+  get realId() {
+    if (this.config.deepId) return this.config.deepId;
+    return this.id;
+  }
+
   get isUnlocked() {
-    return Boolean(this.usedBits & (1 << this.id));
+    return Boolean(this[this.typeOfBits] & (1 << this.realId));
   }
 
   unlock() {
     if (!this.canBeUnlocked) return;
-    this.usedBits |= (1 << this.id);
+    this[this.typeOfBits] |= (1 << this.realId);
     this.onUnlock();
   }
 }

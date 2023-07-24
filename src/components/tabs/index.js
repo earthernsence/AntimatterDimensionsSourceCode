@@ -12,17 +12,19 @@ import EnslavedTab from "./celestial-enslaved/EnslavedTab";
 import EternityChallengesTab from "./eternity-challenges/EternityChallengesTab";
 import EternityMilestonesTab from "./eternity-milestones/EternityMilestonesTab";
 import EternityUpgradesTab from "./eternity-upgrades/EternityUpgradesTab";
-import ExplorationMilestonesTab from "@/components/tabs/earth/ExplorationMilestonesTab";
+import ExplorationMilestonesTab from "./planets/milestones/ExplorationMilestonesTab";
 import GlyphSetRecordsTab from "./glyph-set-records/GlyphSetRecordsTab";
 import GlyphsTab from "./glyphs/GlyphsTab";
 import ImaginaryUpgradesTab from "./imaginary-upgrades/ImaginaryUpgradesTab";
 import InfinityChallengesTab from "./infinity-challenges/InfinityChallengesTab";
 import InfinityDimensionsTab from "./infinity-dimensions/InfinityDimensionsTab";
 import InfinityUpgradesTab from "./infinity-upgrades/InfinityUpgradesTab";
+import JupiterTab from "./planets/jupiter/JupiterTab";
 import LaitelaTab from "./celestial-laitela/LaitelaTab";
-import MarsTab from "./earth/MarsTab";
-import MercuryTab from "./earth/MercuryTab";
+import MarsTab from "./planets/mars/MarsTab";
+import MercuryTab from "./planets/mercury/MercuryTab";
 import MultiplierBreakdownTab from "./statistics/MultiplierBreakdownTab";
+import NeptuneTab from "./planets/neptune/NeptuneTab";
 import NormalAchievementsTab from "./normal-achievements/NormalAchievementsTab";
 import NormalChallengesTab from "./normal-challenges/NormalChallengesTab";
 import OptionsGameplayTab from "./options-gameplay/OptionsGameplayTab";
@@ -35,6 +37,7 @@ import PreviousSpeedrunTab from "./speedrun-milestones/PreviousSpeedrunTab";
 import RaTab from "./celestial-ra/RaTab";
 import RealityUpgradesTab from "./reality-upgrades/RealityUpgradesTab";
 import ReplicantiTab from "./replicanti/ReplicantiTab";
+import SaturnTab from "./planets/saturn/SaturnTab";
 import SecretAchievementTab from "./secret-achievements/SecretAchievementTab";
 import ShopTab from "./shop/ShopTab";
 import SpeedrunMilestonesTab from "./speedrun-milestones/SpeedrunMilestonesTab";
@@ -43,7 +46,8 @@ import TeresaTab from "./celestial-teresa/TeresaTab";
 import TimeDilationTab from "./time-dilation/TimeDilationTab";
 import TimeDimensionsTab from "./time-dimensions/TimeDimensionsTab";
 import TimeStudiesTab from "./time-studies/TimeStudiesTab";
-import VenusTab from "./earth/VenusTab";
+import UranusTab from "./planets/uranus/UranusTab";
+import VenusTab from "./planets/venus/VenusTab";
 import VTab from "./celestial-v/VTab";
 
 const TabComponents = {
@@ -93,6 +97,10 @@ const TabComponents = {
   VenusTab,
   MercuryTab,
   MarsTab,
+  JupiterTab,
+  NeptuneTab,
+  SaturnTab,
+  UranusTab
 };
 
 export default TabComponents;

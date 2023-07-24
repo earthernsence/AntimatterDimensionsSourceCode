@@ -75,6 +75,7 @@ export * from "./infinity-challenges";
 export * from "./eternity";
 export * from "./eternity-challenge";
 export * from "./planets";
+export * from "./satellites";
 export * from "./reality";
 export * from "./replicanti";
 export * from "./time-theorems";

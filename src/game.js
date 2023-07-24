@@ -171,8 +171,8 @@ export function gainedGlyphLevel() {
 }
 
 function totalPPMult() {
-  if (player.explorations < 7) return 1;
-  return Math.max(Math.log(player.explorations - 6), 1);
+  if (player.explorations < 8) return 1;
+  return Math.max(Math.log(player.explorations - 7), 1);
 }
 
 export function gainedPlanetPoints() {
@@ -413,6 +413,7 @@ export function realTimeMechanics(realDiff) {
   // Ra memory generation bypasses stored real time, but memory chunk generation is disabled when storing real time.
   // This is in order to prevent players from using time inside of Ra's reality for amplification as well
   Ra.memoryTick(realDiff, !Enslaved.isStoringRealTime);
+  Research.researchTick(realDiff);
   if (AlchemyResource.momentum.isUnlocked) {
     player.celestials.ra.momentumTime += realDiff * Achievement(175).effectOrDefault(1);
   }

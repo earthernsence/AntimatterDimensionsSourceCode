@@ -307,11 +307,11 @@ export const ra = {
       reward: `All Dimensions, including Dark Matter Dimensions and Solar Dimensions, 
       gain a boost based on Dark Matter`,
       effects: {
-        antimatterDimensions: () => Decimal.pow(10, Currency.darkMatter.value.ln() * 5),
-        infinityDimensions: () => Decimal.pow(10, Currency.darkMatter.value.ln() * 2),
-        timeDimensions: () => Decimal.pow(10, Currency.darkMatter.value.ln()),
-        darkMatterDimensions: () => Decimal.pow(10, Math.log10(Currency.darkMatter.value.ln())),
-        solarDimensions: () => Decimal.pow(2, Math.log10(Currency.darkMatter.value.ln()))
+        antimatterDimensions: () => Decimal.pow(10, Currency.darkMatter.value.ln() * 5).clampMin(1),
+        infinityDimensions: () => Decimal.pow(10, Currency.darkMatter.value.ln() * 2).clampMin(1),
+        timeDimensions: () => Decimal.pow(10, Currency.darkMatter.value.ln()).clampMin(1),
+        darkMatterDimensions: () => Decimal.pow(10, Math.log10(Currency.darkMatter.value.ln())).clampMin(1),
+        solarDimensions: () => Decimal.pow(2, Math.log10(Currency.darkMatter.value.ln())).clampMin(1)
       },
       pet: "laitela",
       level: 1,
@@ -351,10 +351,27 @@ export const ra = {
     imGain: {
       deepId: 0,
       reward: "Accrue Imaginary Machines faster based on Imaginary Machines",
-      effect: () => 1 + Math.sqrt(player),
+      effect: () => 1 + Math.log10(Math.sqrt(Currency.imaginaryMachines.value)),
       pet: "laitela",
       level: 10,
       displayIcon: `<i class="fa-solid fa-brain"></i>`
+    },
+    laitelaBoost: {
+      deepId: 1,
+      reward: "Increase Singularity gain based on Dimensions disabled in Lai'tela's Reality",
+      effect: () => 1 + Math.pow(1.5, 8 - Laitela.maxAllowedDimension),
+      pet: "laitela",
+      level: 15,
+      displayIcon: `<i class="fa-solid fa-tornado"></i>`,
+      disabledByPelle: true,
+    },
+    explorationImprovement: {
+      deepId: 2,
+      reward: "Improve Solar Dimensions based on total Ra levels and Dark Energy",
+      effect: () => Math.max(Math.pow(Ra.totalPetLevel + Math.log10(Currency.darkEnergy.value) - 100, 1.5), 1),
+      pet: "laitela",
+      level: 25,
+      displayIcon: `<i class="fa-solid fa-globe"></i>`
     }
   }
 };

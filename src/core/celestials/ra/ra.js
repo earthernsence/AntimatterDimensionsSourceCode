@@ -244,6 +244,7 @@ export const Ra = {
   reset() {
     const data = player.celestials.ra;
     data.unlockBits = 0;
+    data.deepUnlockBits = 0;
     data.run = false;
     data.charged = new Set();
     data.disCharge = false;

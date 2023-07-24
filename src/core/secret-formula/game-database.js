@@ -10,10 +10,11 @@ import { confirmationTypes } from "./confirmation-types";
 import { credits } from "./credits";
 import { discordRichPresence } from "./discord-rich-presence";
 import { eternity } from "./eternity";
+import { exploration } from "./planets";
 import { h2p } from "./h2p";
 import { infinity } from "./infinity";
 import { news } from "./news";
-import { planets } from "./planets";
+// import { planets } from "./planets";
 import { progressStages } from "./progress-checker";
 import { reality } from "./reality";
 import { shopPurchases } from "./shop-purchases";
@@ -37,7 +38,7 @@ export const GameDatabase = {
   multiplierTabTree,
   multiplierTabValues,
   news,
-  planets,
+  exploration,
   progressStages,
   reality,
   shopPurchases,

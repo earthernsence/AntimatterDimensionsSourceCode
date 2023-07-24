@@ -25,6 +25,7 @@ export default {
       isDoomed: false,
       antimatter: new Decimal(0),
       antimatterPerSec: new Decimal(0),
+      inCelestialReality: false
     };
   },
   methods: {
@@ -37,6 +38,7 @@ export default {
       this.antimatter.copyFrom(Currency.antimatter);
       this.hasRealityButton = PlayerProgress.realityUnlocked() || TimeStudy.reality.isBought;
       if (!this.hasRealityButton) this.antimatterPerSec.copyFrom(Currency.antimatter.productionPerSecond);
+      this.inCelestialReality = isInCelestialReality();
     },
   },
 };
@@ -57,6 +59,7 @@ export default {
         v-if="isDoomed"
         :is-header="true"
       />
+      <!-- <ExitCelestialButtons v-else-if="inCelestialReality" /> -->
       <RealityButton v-else />
     </div>
     <div v-else>

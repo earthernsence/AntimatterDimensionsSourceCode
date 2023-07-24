@@ -1,6 +1,6 @@
 <script>
-import ClassicSolarDimensionsTab from "@/components/tabs/earth/ClassicSolarDimensionsTab";
-import ModernSolarDimensionsTab from "@/components/tabs/earth/ModernSolarDimensionsTab";
+import ClassicSolarDimensionsTab from "@/components/tabs/planets/mars/ClassicSolarDimensionsTab";
+import ModernSolarDimensionsTab from "@/components/tabs/planets/mars/ModernSolarDimensionsTab";
 
 export default {
   name: "MarsTab",
