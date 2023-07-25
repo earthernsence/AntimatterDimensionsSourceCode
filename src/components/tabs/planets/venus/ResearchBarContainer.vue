@@ -35,8 +35,8 @@ export default {
 <style scoped>
 .c-all-research {
   display: flex;
-  width: 100rem;
-  height: 75rem;
+  width: 125rem;
+  height: 70rem;
   position: relative;
   border: 0.25rem solid white;
   border-radius: var(--var-border-radius, 0.4rem);

@@ -66,7 +66,7 @@ export class DarkMatterDimensionState extends DimensionState {
       SingularityMilestone.darkFromDM4,
       SingularityMilestone.darkFromGamespeed,
       SingularityMilestone.darkFromDilatedTime,
-      Ra.unlocks.dimensionsImprovement.effects.darkMatterDimensions
+      Ra.unlocks.dimensionsImprovement.effects.darkMatterDimensions,
     );
   }
 
@@ -76,12 +76,16 @@ export class DarkMatterDimensionState extends DimensionState {
 
   get powerDM() {
     if (!this.isUnlocked) return new Decimal(0);
-    return new Decimal(1 + 2 * Math.pow(1.15, this.data.powerDMUpgrades))
+    return new Decimal(1)
       .times(Laitela.realityReward)
       .times(Laitela.darkMatterMult)
       .times(this.commonDarkMult)
       .times(Math.pow(this.powerDMPerAscension, this.ascensions))
-      .timesEffectsOf(SingularityMilestone.darkMatterMult, SingularityMilestone.multFromInfinitied)
+      .timesEffectsOf(
+        SingularityMilestone.darkMatterMult,
+        SingularityMilestone.multFromInfinitied,
+        Research.planets.mercury.effects.research
+      )
       .dividedBy(Math.pow(1e4, Math.pow(this.tier - 1, 0.5)));
   }
 
@@ -165,7 +169,7 @@ export class DarkMatterDimensionState extends DimensionState {
   }
 
   get canBuyPowerDM() {
-    return Currency.darkMatter.gte(this.powerDMCost);
+    return false;
   }
 
   get canBuyPowerDE() {
@@ -186,11 +190,7 @@ export class DarkMatterDimensionState extends DimensionState {
   }
 
   buyManyPowerDM(x) {
-    const cost = this.rawPowerDMCost.times(
-      Decimal.pow(this.powerDMCostIncrease, x).minus(1)).div(this.powerDMCostIncrease - 1).floor();
-    if (!Currency.darkMatter.purchase(cost)) return false;
-    this.data.powerDMUpgrades += x;
-    return true;
+    return false;
   }
 
   buyManyPowerDE(x) {

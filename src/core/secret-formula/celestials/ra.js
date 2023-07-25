@@ -16,7 +16,7 @@ export const ra = {
       color: "#ea8585",
       chunkGain: "Relic Shards gained",
       memoryGain: "best Glyph level",
-      requiredUnlock: () => Ra.unlocks.effarigUnlock,
+      requiredUnlock: () => Ra.unlocks.effarigUnlock || Research.upgrades.keepPet1.canBeApplied,
       rawMemoryChunksPerSecond: () => 4 * Math.pow(Effarig.shardsGained, 0.1),
       memoryProductionMultiplier: () => Ra.unlocks.effarigXP.effectOrDefault(1)
     },
@@ -26,7 +26,7 @@ export const ra = {
       color: "#f1aa7f",
       chunkGain: "Time Shards",
       memoryGain: "total time played",
-      requiredUnlock: () => Ra.unlocks.enslavedUnlock,
+      requiredUnlock: () => Ra.unlocks.enslavedUnlock || Research.upgrades.keepPet1.canBeApplied,
       rawMemoryChunksPerSecond: () => 4 * Math.pow(Currency.timeShards.value.pLog10() / 3e5, 2),
       memoryProductionMultiplier: () => Ra.unlocks.enslavedXP.effectOrDefault(1)
     },
@@ -36,7 +36,7 @@ export const ra = {
       color: "#ead584",
       chunkGain: "Infinity Power",
       memoryGain: "total Memory levels",
-      requiredUnlock: () => Ra.unlocks.vUnlock,
+      requiredUnlock: () => Ra.unlocks.vUnlock || Research.upgrades.keepPet1.canBeApplied,
       rawMemoryChunksPerSecond: () => 4 * Math.pow(Currency.infinityPower.value.pLog10() / 1e7, 1.5),
       memoryProductionMultiplier: () => Ra.unlocks.vXP.effectOrDefault(1)
     },

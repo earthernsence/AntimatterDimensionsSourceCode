@@ -492,3 +492,8 @@ Currency.explorations = new class extends NumberCurrency {
   get value() { return player.explorations; }
   set value(value) { player.explorations = value; }
 }();
+
+Currency.researchPoints = new class extends DecimalCurrency {
+  get value() { return player.planets.venus.researchPoints; }
+  set value(value) { player.planets.venus.researchPoints = value; }
+}();

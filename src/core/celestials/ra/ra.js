@@ -127,7 +127,7 @@ class RaPetState extends GameMechanicState {
     if (!this.canGetMemoryChunks) return 0;
     let res = this.rawMemoryChunksPerSecond * this.chunkUpgradeCurrentMult *
       Effects.product(Ra.unlocks.continuousTTBoost.effects.memoryChunks, GlyphSacrifice.reality);
-    if (this.hasRemembrance) res *= Ra.remembrance.multiplier;
+    if (this.hasRemembrance || Research.upgrades.remembranceImprovement.canBeApplied) res *= Ra.remembrance.multiplier;
     else if (Ra.petWithRemembrance) res *= Ra.remembrance.nerf;
     return res * Math.max(Currency.watts.value.log10() / Decimal.log10(1000), 1);
   }
@@ -213,8 +213,12 @@ class RaPetState extends GameMechanicState {
     this.memories += newMemories;
   }
 
+  get startingLevel() {
+    return Research.upgrades.keepPet1.effectOrDefault(1);
+  }
+
   reset() {
-    this.data.level = 1;
+    this.data.level = this.startingLevel;
     this.data.memories = 0;
     this.data.memoryChunks = 0;
     this.data.memoryUpgrades = 0;
@@ -234,7 +238,9 @@ export const Ra = {
   pets,
   remembrance: {
     multiplier: 5,
-    nerf: 0.5,
+    get nerf() {
+      return Research.upgrades.remembranceImprovement.canBeApplied ? 1 : 0.5
+    },
     requiredLevels: 20,
     get isUnlocked() {
       return Ra.totalPetLevel >= this.requiredLevels;
@@ -256,7 +262,11 @@ export const Ra = {
     for (const pet of Ra.pets.all) pet.tick(realDiff, generateChunks);
   },
   get productionPerMemoryChunk() {
-    let res = Effects.product(Ra.unlocks.continuousTTBoost.effects.memories, Achievement(168));
+    let res = Effects.product(
+      Ra.unlocks.continuousTTBoost.effects.memories,
+      Achievement(168),
+      Research.upgrades.memoryGeneration
+    );
     for (const pet of Ra.pets.all) {
       if (pet.isUnlocked) res *= pet.memoryProductionMultiplier;
     }
@@ -270,6 +280,7 @@ export const Ra = {
     if (Achievement(168).isUnlocked) boostList.push("Achievement 168");
     if (Ra.unlocks.continuousTTBoost.canBeApplied) boostList.push("current TT");
     if (getWattsEffect() > 1) boostList.push("Solar Dimensions");
+    if (Research.upgrades.memoryGeneration.isBought) boostList.push("total Research levels");
 
     if (boostList.length === 1) return `${boostList[0]}`;
     if (boostList.length === 2) return `${boostList[0]} and ${boostList[1]}`;
@@ -280,7 +291,10 @@ export const Ra = {
     if (level >= Ra.levelCap) return Infinity;
     const adjustedLevel = level + Math.pow(level, 2) / 10;
     const post15Scaling = Math.pow(1.5, Math.max(0, level - 15));
-    return Math.floor(Math.pow(adjustedLevel, 5.52) * post15Scaling * 1e6);
+    let required = Math.floor(Math.pow(adjustedLevel, 5.52) * post15Scaling * 1e6);
+    if (level < 25) return required;
+    required *= Math.pow(level, 5);
+    return required;
   },
   // Returns a string containing a time estimate for gaining a specific amount of exp (UI only)
   timeToGoalString(pet, expToGain) {
@@ -302,7 +316,7 @@ export const Ra = {
     return this.pets.all.map(pet => (pet.isUnlocked ? pet.level : 0)).sum();
   },
   get levelCap() {
-    return 25;
+    return 25 + Research.upgrades.raLevelCapIncrease.effectOrDefault(0);
   },
   get maxTotalPetLevel() {
     return this.levelCap * this.pets.all.length;

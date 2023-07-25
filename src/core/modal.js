@@ -18,10 +18,10 @@ import EternityModal from "@/components/modals/prestige/EternityModal";
 import ExitChallengeModal from "@/components/modals/prestige/ExitChallengeModal";
 import ExitDilationModal from "@/components/modals/prestige/ExitDilationModal";
 import HardResetModal from "@/components/modals/prestige/HardResetModal";
+import PlanetsModal from "@/components/modals/prestige/PlanetsModal";
 import RealityModal from "@/components/modals/prestige/RealityModal";
 import ReplicantiGalaxyModal from "@/components/modals/prestige/ReplicantiGalaxyModal";
 import ResetRealityModal from "@/components/modals/prestige/ResetRealityModal";
-import PlanetsModal from "@/components/modals/prestige/PlanetsModal";
 
 import AnimationOptionsModal from "@/components/modals/options/AnimationOptionsModal";
 import AwayProgressOptionsModal from "@/components/modals/options/AwayProgressOptionsModal";
@@ -68,6 +68,7 @@ import ModifySeedModal from "@/components/modals/ModifySeedModal";
 import PelleEffectsModal from "@/components/modals/PelleEffectsModal";
 import RealityGlyphCreationModal from "@/components/modals/RealityGlyphCreationModal";
 import ReplaceGlyphModal from "@/components/modals/ReplaceGlyphModal";
+import ResearchModal from "@/components/modals/ResearchModal";
 import RespecIAPModal from "@/components/modals/RespecIAPModal";
 import SacrificeModal from "@/components/modals/SacrificeModal";
 import SingularityMilestonesModal from "@/components/modals/SingularityMilestonesModal";
@@ -270,6 +271,7 @@ Modal.pelleEffects = new Modal(PelleEffectsModal);
 Modal.sacrifice = new Modal(SacrificeModal, 1, GAME_EVENT.DIMBOOST_AFTER);
 Modal.breakInfinity = new Modal(BreakInfinityModal, 1, GAME_EVENT.ETERNITY_RESET_AFTER);
 Modal.respecIAP = new Modal(RespecIAPModal);
+Modal.research = new Modal(ResearchModal, 1);
 
 Modal.s12Games = new Modal(S12GamesModal);
 

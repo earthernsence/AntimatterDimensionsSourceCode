@@ -31,8 +31,12 @@ export const explorationMilestones = {
   },
   planetPointGainBoost: {
     explorations: 10,
-    reward: () => `Boost Planet Point gain based on total Explorations.\n
-    Currently ${formatX(Math.max(Math.log(player.explorations - 7), 1), 2, 2)}`
+    reward: () => {
+      if (player.explorations < 10) return `Boost Planet Point gain based on total Explorations.\n
+      Currently ${formatX(1, 2, 2)}`;
+      return `Boost Planet Point gain based on total Explorations.\n
+    Currently ${formatX(Math.clampMin(Math.log(player.explorations - 7), 1), 2, 2)}`;
+    }
   },
   earthlol2: {
     explorations: 12,

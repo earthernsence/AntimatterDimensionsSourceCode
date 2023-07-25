@@ -37,13 +37,22 @@ export default {
     <div class="c-venus-tab-header">
       Planetary Research is, in a lot of ways, similar to elements of both Ra and Teresa.
       <br>
-      However, you have a limited number of Satellites to use, which produce progress 
+      However, you have a limited number of Satellites to use, which produce progress
       in each Research. You will be able to research all 7 Planets.
       <br>
-      Total Research level divides progress per Satellite. Current progress per Satellite: 
+      Total Research level divides progress per Satellite. Current progress per Satellite:
       {{ format(progressPerSatellite, 2, 2) }} progress/sec.
       <br>
       Researching each Planet will boost the Planet in some way.
+      <br>
+      You can also spend your gained Research levels on special Planetary researches, which can
+      speed up various aspects of an Exploration.
+    </div>
+    <div>
+      Mouse-over the <i class="fas fa-question-circle" /> icons below to see a description of
+      the effects given by Research level.
+      <br>
+      Clicking on the Research bar will open a modal where you can spend your gained Research Points.
     </div>
     <br>
     <ResearchBarContainer />

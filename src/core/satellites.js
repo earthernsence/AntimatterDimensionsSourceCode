@@ -1,4 +1,5 @@
-import { GameMechanicState } from "./game-mechanics";
+import { DC } from "./constants";
+import { GameMechanicState, SetPurchasableMechanicState } from "./game-mechanics";
 
 export class Satellites {
   static get amount() {
@@ -53,7 +54,9 @@ export class Satellites {
 
   static get progressPerSatellite() {
     let base = 10;
-    base /= (1 + Research.totalResearchLevel * 0.1);
+    base /= (1 + Research.totalResearchLevel * Research.upgrades.satelliteImprovement3.effectOrDefault(0.1));
+    base *= Research.upgrades.satelliteImprovement.effectOrDefault(1);
+    base *= Research.upgrades.satelliteImprovement2.effectOrDefault(1);
     return base;
   }
 }
@@ -101,6 +104,10 @@ class PlanetResearch extends GameMechanicState {
     return Math.pow(10, this.level + 2);
   }
 
+  get additionalMultiplier() {
+    return Research.upgrades[`${this.name}Mult`].effectOrDefault(1);
+  }
+
   assignSatellite(add) {
     if (add) {
       if (Satellites.assignedSatellites === Satellites.totalAmount) {
@@ -121,6 +128,10 @@ class PlanetResearch extends GameMechanicState {
     }
   }
 
+  get researchPointsPerLevel() {
+    return Research.upgrades.moreResearchPoints.effectOrDefault(1);
+  }
+
   levelUp() {
     if (this.progressPoints < this.goal) return;
 
@@ -131,12 +142,28 @@ class PlanetResearch extends GameMechanicState {
     if (Satellites.totalAmount !== (Satellites.amount + Satellites.assignedSatellites)) {
       Satellites.amount = Satellites.totalAmount - Satellites.assignedSatellites;
     }
+
+    Currency.researchPoints.add(this.researchPointsPerLevel);
+  }
+
+  get gainedPoints() {
+    let gain = this.satellites * Satellites.progressPerSatellite;
+    gain *= this.additionalMultiplier.toNumber();
+    return gain;
+  }
+
+  get timeEstimate() {
+    const currentGain = this.gainedPoints;
+    const currentAmount = this.progressPoints;
+    if (currentGain === 0) return null;
+    return TimeSpan.fromSeconds(Decimal.sub(new Decimal(this.goal), currentAmount)
+      .div(currentGain).toNumber()).toTimeEstimate();
   }
 
   tick(realDiff) {
     if (this.satellites === 0) return;
     const seconds = realDiff / 1000;
-    this.progressPoints += (this.satellites * Satellites.progressPerSatellite) * seconds;
+    this.progressPoints += this.gainedPoints * seconds;
     this.levelUp();
   }
 }
@@ -146,8 +173,103 @@ const planets = mapGameDataToObject(
   config => new PlanetResearch(config)
 );
 
+class ResearchUpgradeState extends SetPurchasableMechanicState {
+  constructor(config) {
+    super(config);
+    this._planet = config.planet;
+  }
+
+  get planet() {
+    return this._planet;
+  }
+
+  get currency() {
+    return Currency.researchPoints;
+  }
+
+  get set() {
+    return player.planets.venus.research[this.planet].upgrades;
+  }
+
+  get isAvailableForPurchase() {
+    return this.config.checkRequirement?.() ?? true;
+  }
+
+  get isEffectActive() {
+    return this.isBought;
+  }
+
+  purchase() {
+    return super.purchase();
+  }
+}
+
+export class PlanetResearchMultiplierState extends GameMechanicState {
+  constructor(planet) {
+    super({});
+    this._planet = planet;
+    this.cachedCost = new Lazy(() => this.costAfterCount(this.multipliers));
+    this.cachedEffectValue = new Lazy(() => DC.D2.pow(this.multipliers));
+  }
+
+  get isAffordable() {
+    return Currency.researchPoints.gte(this.cost);
+  }
+
+  get cost() {
+    return this.cachedCost.value;
+  }
+
+  get multipliers() {
+    return player.planets.venus.research[this.planet].multipliers;
+  }
+
+  set multipliers(value) {
+    player.planets.venus.research[this.planet].multipliers = value;
+    this.cachedCost.invalidate();
+    this.cachedEffectValue.invalidate();
+  }
+
+  get isCustomEffect() {
+    return true;
+  }
+
+  get effectValue() {
+    return this.cachedEffectValue.value;
+  }
+
+  get planet() {
+    return this._planet;
+  }
+
+  purchase() {
+    if (!this.isAffordable) return false;
+    Currency.researchPoints.subtract(this.cost);
+    ++this.multipliers;
+    return true;
+  }
+
+  reset() {
+    this.multipliers = 0;
+  }
+
+  costAfterCount(count) {
+    return DC.D5.pow(count);
+  }
+}
+
+export const ResearchUpgrade = mapGameDataToObject(
+  GameDatabase.exploration.research,
+  config => new ResearchUpgradeState(config)
+);
+
+for (const planet of ["mars", "venus", "mercury", "jupiter", "saturn", "uranus", "neptune"]) {
+  ResearchUpgrade[`${planet}Mult`] = new PlanetResearchMultiplierState(planet);
+}
+
 export const Research = {
   planets,
+  upgrades: ResearchUpgrade,
   get totalResearchLevel() {
     return Research.planets.all.map(planet => (planet.isUnlocked ? planet.level : 0)).sum();
   },

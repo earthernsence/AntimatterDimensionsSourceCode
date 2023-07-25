@@ -19,11 +19,19 @@ export default {
       percentage: "",
       level: 0,
       satellites: 0,
+      progressPerSecond: 0,
+      isGenerating: false,
+      timeEstimate: ""
     };
   },
   computed: {
     research() {
       return Research.planets[this.planet];
+    },
+    classObject() {
+      return {
+        "c-research-bar-active": this.isGenerating
+      };
     }
   },
   methods: {
@@ -32,6 +40,10 @@ export default {
       this.percentage = `${(this.currentProgress * 100).toFixed(2)}%`;
       this.level = this.research.level;
       this.satellites = this.research.satellites;
+      this.progressPerSecond = this.research.gainedPoints;
+      this.isGenerating = this.satellites > 0;
+      this.timeEstimate = this.research.timeEstimate;
+      this.adjective = Planets[this.planet].adjective;
     },
     handleClick(add) {
       this.research.assignSatellite(add);
@@ -39,15 +51,25 @@ export default {
     getEffect() {
       switch (this.planet) {
         case "mars":
-          return `${formatX(this.research.effects.research.effectValue)} to Solar Dimensions`;
+          return `${formatX(this.research.effects.research.effectValue, 2, 2)} 
+          to Solar Dimensions based on Mars Research levels`;
         case "venus":
           return `Gain a free Satellite every 3 levels. 
           Currently ${quantifyInt("free Satellite", this.research.effects.research.effectValue)}`;
         case "mercury":
-          return "W";
+          return `Boost Dark Matter Dimensions DM multiplier based on game speed and Mercury Research levels.
+          Currently ${formatX(this.research.effects.research.effectValue, 2, 2)}`;
         default:
           throw "Unknown planet in ResearchBar";
       }
+    },
+    handleBarClick() {
+      Modal.research.show({ planet: this.planet });
+    },
+    tooltip() {
+      if (this.progressPerSecond === 0) return `Assign a Satellite to ${this.planet.capitalize()} to gain progress`;
+      return `Gaining ${format(this.progressPerSecond, 2, 2)} progress/sec in ${this.adjective} Research\n
+      Levels up in ${this.timeEstimate}`;
     }
   }
 };
@@ -55,22 +77,32 @@ export default {
 
 <template>
   <div class="c-research-container">
-    <div class="c-research-bar">
+    <div
+      class="c-research-bar"
+      :ach-tooltip="tooltip()"
+      @click="handleBarClick"
+    >
+      <div
+        v-if="isGenerating"
+        :class="classObject"
+      />
       <div
         class="c-research-bar-inner"
         :style="{ height: percentage }"
       >
         <div class="c-research-bar-label">
-          {{ formatPercents(currentProgress, 2) }} to {{ level + 1 }}
+          {{ formatPercents(currentProgress, 2) }} to level {{ formatInt(level + 1) }}
         </div>
       </div>
     </div>
     <div class="c-button-container">
       <PlusMinusButton
+        class="c-plus-minus-button"
         type="plus"
         @click="handleClick(true)"
       />
       <PlusMinusButton
+        class="c-plus-minus-button"
         type="minus"
         @click="handleClick(false)"
       />
@@ -111,6 +143,24 @@ export default {
   margin: auto;
 }
 
+.c-plus-minus-button {
+  display: flex;
+  width: 2.5rem;
+  height: 2.5rem;
+  justify-content: center;
+  align-items: center;
+  font-size: 2rem;
+  background-color: var(--color-background);
+  border: 0.1rem solid var(--color-earth);
+  border-radius: var(--var-border-radius, 50%);
+  transition-duration: 0.2s;
+  cursor: pointer;
+}
+
+.c-plus-minus-button:hover {
+  background-color: var(--color-earth);
+}
+
 .c-research-bar {
   width: 13rem;
   height: 50rem;
@@ -119,6 +169,19 @@ export default {
   border: 0.1rem solid var(--color-earth);
   border-radius: var(--var-border-radius, 0.4rem);
   margin: auto
+}
+
+.c-research-bar-active {
+  width: 100%;
+  position: absolute;
+  z-index: 1;
+  opacity: 0.3;
+  background: var(--color-background);
+  animation: a-research-bar-filling-sweep infinite 2s linear;
+}
+
+.c-research-bar:hover {
+  cursor: pointer;
 }
 
 .c-research-bar-inner {
@@ -147,5 +210,27 @@ export default {
   font-size: 1.5rem;
   font-weight: bold;
   color: white;
+}
+
+@keyframes a-research-bar-filling-sweep {
+  0% {
+    height: 0;
+    bottom: 0;
+  }
+
+  10% {
+    height: 2rem;
+    bottom: 0;
+  }
+
+  90% {
+    height: 2rem;
+    bottom: calc(100% - 2rem)
+  }
+
+  100% {
+    height: 0;
+    bottom: 100%
+  }
 }
 </style>

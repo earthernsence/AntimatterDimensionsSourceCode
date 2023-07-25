@@ -1,4 +1,5 @@
 import { explorationMilestones } from "./milestones";
+import { research } from "./research";
 
 import { jupiter } from "./jupiter";
 import { mars } from "./mars";
@@ -20,5 +21,6 @@ const planets = {
 
 export const exploration = {
   explorationMilestones,
+  research,
   planets
 };

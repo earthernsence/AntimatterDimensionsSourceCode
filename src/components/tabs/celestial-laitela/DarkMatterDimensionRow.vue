@@ -78,11 +78,7 @@ export default {
       const str = `DM ${formatX(dm, 2, 2)}`;
       const line1 = this.hoverOverAscension ? `<b>${str}</b>` : str;
 
-      const ascMult = this.powerDMPerAscension * this.interval / this.intervalAfterAscension;
-      const line2 = this.hoverOverAscension
-        ? `${formatX(ascMult, 2, 2)} / sec`
-        : `Cost: ${this.formatDMCost(this.powerDMCost)} DM`;
-      return `${line1}<br>${line2}`;
+      return line1;
     },
     darkEnergyText() {
       const de = this.powerDE * (this.hoverOverAscension ? POWER_DE_PER_ASCENSION : 1);
@@ -185,10 +181,13 @@ export default {
         <span v-html="intervalText" />
       </button>
       <button
+        ach-tooltip="You cannot purchase the DM multiplier upgrade!"
         :class="darkMatterClassObject"
         @click="buyPowerDM"
       >
-        <span v-html="darkMatterText" />
+        <span
+          v-html="darkMatterText"
+        />
       </button>
       <button
         :class="darkEnergyClassObject"

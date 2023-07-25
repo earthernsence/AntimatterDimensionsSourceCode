@@ -1,4 +1,4 @@
-import { GameMechanicState } from "./game-mechanics";
+import { GameMechanicState, SetPurchasableMechanicState } from "./game-mechanics";
 
 export function planetResetRequest() {
   if (Player.canExplore) askPlanetConfirmation();
@@ -39,12 +39,47 @@ class Planet extends GameMechanicState {
     return this.config.shortName;
   }
 
+  get adjective() {
+    return this.config.adjective;
+  }
+
   get isUnlocked() {
     return this.data.isUnlocked;
   }
 
   set isUnlocked(value) {
     this.data.isUnlocked = value;
+  }
+
+  get researchUpgrades() {
+    return Planets.researchUpgrades.filter(planet => planet.planet === this.name);
+  }
+}
+
+class ResearchUpgradeState extends SetPurchasableMechanicState {
+  constructor(config) {
+    super(config);
+    this.planet = config.planet;
+  }
+
+  get currency() {
+    return Currency.researchPoints;
+  }
+
+  get set() {
+    return player.planets.venus.research[this.planet].upgrades;
+  }
+
+  get isAvailableForPurchase() {
+    return this.config.checkRequirement?.() ?? true;
+  }
+
+  get isEffectActive() {
+    return this.isBought;
+  }
+
+  purchase() {
+    return super.purchase();
   }
 }
 
@@ -68,6 +103,12 @@ const planets = mapGameDataToObject(
   config => new Planet(config)
 );
 
+const researchUpgrades = mapGameDataToObject(
+  GameDatabase.exploration.research,
+  config => new ResearchUpgradeState(config)
+);
+
 export const Planets = {
-  ...planets
+  ...planets,
+  researchUpgrades: researchUpgrades.all.compact()
 };

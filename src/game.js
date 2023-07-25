@@ -171,8 +171,10 @@ export function gainedGlyphLevel() {
 }
 
 function totalPPMult() {
-  if (player.explorations < 8) return 1;
-  return Math.max(Math.log(player.explorations - 7), 1);
+  let multiplier = 1;
+  multiplier *= Research.upgrades.planetPointBoost.effectOrDefault(1);
+  if (player.explorations < 8) return multiplier;
+  return multiplier * Math.max(Math.log(player.explorations - 7), 1);
 }
 
 export function gainedPlanetPoints() {
